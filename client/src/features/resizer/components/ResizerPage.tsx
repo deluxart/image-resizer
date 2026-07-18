@@ -1,35 +1,48 @@
 import { config } from "../../../config";
 import { useResizeQueue } from "../hooks/useResizeQueue";
+import { Dropzone } from "./Dropzone";
 import { Toolbar } from "./Toolbar";
 import { ImageList } from "./ImageList";
 import "./resizer.css";
 
-/** Top-level container for the resizer feature: state comes from the hook, UI from children. */
+/** Top-level container: state from the hook, UI from presentational children. */
 export const ResizerPage = () => {
   const queue = useResizeQueue();
-  const atLimit = queue.items.length >= config.maxImages;
+  const hasItems = queue.items.length > 0;
 
   return (
-    <main className="resizer">
-      <h1>Online Image Resizer</h1>
+    <div className="page">
+      <main className="resizer">
+        <header className="resizer__header">
+          <h1>Image Resizer</h1>
+          <p className="resizer__subtitle">
+            Resize JPEG &amp; PNG images right in your browser — fast, private, batched.
+          </p>
+        </header>
 
-      <Toolbar
-        percentage={queue.percentage}
-        isProcessing={queue.isProcessing}
-        canAddMore={queue.canAddMore}
-        canResize={queue.canResize}
-        hasItems={queue.items.length > 0}
-        onFiles={queue.addFiles}
-        onPercentageChange={queue.setPercentage}
-        onResize={queue.resizeAll}
-        onClear={queue.clear}
-      />
+        <Dropzone disabled={!queue.canAddMore} onFiles={queue.addFiles} />
 
-      <p className="hint">
-        {queue.items.length}/{config.maxImages} images{atLimit && " (limit reached)"}
-      </p>
+        {hasItems && (
+          <>
+            <div className="resizer__bar">
+              <Toolbar
+                percentage={queue.percentage}
+                isProcessing={queue.isProcessing}
+                canResize={queue.canResize}
+                hasItems={hasItems}
+                onPercentageChange={queue.setPercentage}
+                onResize={queue.resizeAll}
+                onClear={queue.clear}
+              />
+              <span className="resizer__count">
+                {queue.items.length}/{config.maxImages}
+              </span>
+            </div>
 
-      <ImageList items={queue.items} />
-    </main>
+            <ImageList items={queue.items} />
+          </>
+        )}
+      </main>
+    </div>
   );
 };
