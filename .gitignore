@@ -1,0 +1,21 @@
+# --- .NET ---
+Api/bin/
+Api/obj/
+*.user
+
+# --- Node / Vite ---
+client/node_modules/
+client/dist/
+client/.vite/
+node_modules/
+
+# --- Env / secrets ---
+*.local
+.env
+.env.*
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
