@@ -19,3 +19,7 @@ node_modules/
 .vscode/
 .idea/
 *.swp
+
+Api.Tests/bin/
+Api.Tests/obj/
+Api.Tests/TestResults/

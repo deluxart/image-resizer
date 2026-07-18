@@ -61,3 +61,6 @@ app.UseRequestTimeouts();
 app.MapControllers();
 
 app.Run();
+
+// Exposes the implicit Program class to the integration-test project.
+public partial class Program { }
