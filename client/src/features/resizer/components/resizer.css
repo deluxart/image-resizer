@@ -1,14 +1,16 @@
 :root {
-  --bg: #0b0d12;
-  --surface: #14171f;
-  --surface-2: #1b1f2a;
+  /* Palette aligned with the 3dEYE brand: near-black + teal/emerald accent. */
+  --bg: #0a0e0d;
+  --surface: #121815;
+  --surface-2: #18211d;
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
-  --text: #e6e8ec;
-  --muted: #8b93a1;
-  --accent: #7c6cf6;
-  --accent-2: #a855f7;
-  --success: #22c55e;
+  --text: #e6ece9;
+  --muted: #879189;
+  --accent: #2d9f89; /* 3dEYE primary teal */
+  --accent-2: #46bba2; /* lighter teal for gradients */
+  --accent-rgb: 45, 159, 137;
+  --success: #46bba2;
   --danger: #f87171;
   --radius: 16px;
   --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
@@ -22,7 +24,7 @@
   color: var(--text);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   background:
-    radial-gradient(1000px 500px at 50% -10%, rgba(124, 108, 246, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at 50% -10%, rgba(var(--accent-rgb), 0.18), transparent 60%),
     var(--bg);
 }
 
@@ -40,7 +42,7 @@
   margin: 0 0 8px;
   font-size: 2rem;
   letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #fff, #c9c4ff);
+  background: linear-gradient(90deg, #fff, #73d5bd);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -71,7 +73,7 @@
 .dropzone.dragging {
   border-color: var(--accent);
   background: var(--surface-2);
-  box-shadow: 0 0 0 4px rgba(124, 108, 246, 0.15);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.15);
   transform: translateY(-1px);
 }
 .dropzone.disabled {
@@ -151,7 +153,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(124, 108, 246, 0.5);
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.5);
 }
 .scale input[type="range"]::-moz-range-thumb {
   width: 18px;
@@ -185,7 +187,7 @@
 .btn--primary {
   color: #fff;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 8px 20px -8px rgba(124, 108, 246, 0.8);
+  box-shadow: 0 8px 20px -8px rgba(var(--accent-rgb), 0.7);
 }
 .btn--ghost {
   color: var(--muted);
@@ -281,7 +283,7 @@
 }
 .badge--busy {
   color: var(--accent);
-  background: rgba(124, 108, 246, 0.12);
+  background: rgba(var(--accent-rgb), 0.12);
 }
 .badge--error {
   color: var(--danger);
@@ -298,7 +300,7 @@
 .spinner {
   width: 12px;
   height: 12px;
-  border: 2px solid rgba(124, 108, 246, 0.35);
+  border: 2px solid rgba(var(--accent-rgb), 0.35);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
