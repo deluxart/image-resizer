@@ -17,6 +17,11 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 
+# Don't watch appsettings.json for changes in production. The default file
+# watcher uses inotify, whose instance limit is easily hit on constrained
+# hosts (Render) and crashes startup. Config is static in prod anyway.
+ENV DOTNET_hostBuilder__reloadConfigOnChange=false
+
 EXPOSE 8080
 
 # Render (and most PaaS) inject the port via $PORT at runtime; bind to it,
