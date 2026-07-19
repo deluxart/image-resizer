@@ -19,7 +19,9 @@ const revokeUrls = (item: ResizeItem): void => {
  */
 export const useResizeQueue = () => {
   const [items, setItems] = useState<ResizeItem[]>([]);
-  const [percentage, setPercentage] = useState(config.defaultPercentage);
+  // Explicit number type: config.defaultPercentage is a literal (`as const`),
+  // which would otherwise narrow the setter to that single value.
+  const [percentage, setPercentage] = useState<number>(config.defaultPercentage);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const patchItem = useCallback((id: string, patch: Partial<ResizeItem>): void => {
