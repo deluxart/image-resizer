@@ -61,6 +61,29 @@ finally { _throttle.Release(); }                // always free the slot
 `N = cores` because the work is CPU-bound: more parallelism than cores just adds
 context-switching and memory pressure without going faster.
 
+### Benchmark
+
+`benchmark/run.mjs` fires N resize requests at once and reports how the server
+copes. It generates real PNG load in-memory (a small dependency-free PNG
+encoder), so no fixtures are needed:
+
+```bash
+# API must be running
+node benchmark/run.mjs --n 500 --size 1200 --pct 50
+```
+
+Results on a 14-core machine (semaphore cap = 14):
+
+| Parallel requests | Succeeded | Failed | Throughput | Latency p50 | p95 |
+|---|---|---|---|---|---|
+| 200 | 200/200 | 0 | ~172 req/s | 742 ms | 1120 ms |
+| 500 | 500/500 | 0 | ~225 req/s | 1718 ms | 2114 ms |
+
+**The point:** every request succeeds even at 500-way concurrency — the 486
+requests beyond the 14 in-flight simply queue and wait. Latency rises smoothly
+with load instead of the server dropping requests or falling over. That is the
+semaphore doing its job: **bounded work, graceful degradation.**
+
 ---
 
 ## Architecture
