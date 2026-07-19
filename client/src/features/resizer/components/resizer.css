@@ -305,6 +305,35 @@
   animation: spin 0.7s linear infinite;
 }
 
+/* --- Footer --- */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.footer b {
+  color: var(--text);
+}
+.footer__links {
+  display: flex;
+  gap: 14px;
+}
+.footer__links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer__links a:hover {
+  color: var(--accent);
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

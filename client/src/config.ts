@@ -9,3 +9,11 @@ export const config = {
   acceptedTypes: ["image/jpeg", "image/png"] as const,
   defaultPercentage: 50,
 } as const;
+
+export const author = {
+  name: "Aleksandr Osadchiy",
+  year: 2026,
+  github: "https://github.com/deluxart",
+  linkedin: "https://www.linkedin.com/in/aleksandr-osadchiy",
+  email: "deluxart3@gmail.com",
+} as const;

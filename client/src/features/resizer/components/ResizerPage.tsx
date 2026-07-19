@@ -3,6 +3,7 @@ import { useResizeQueue } from "../hooks/useResizeQueue";
 import { Dropzone } from "./Dropzone";
 import { Toolbar } from "./Toolbar";
 import { ImageList } from "./ImageList";
+import { Footer } from "./Footer";
 import "./resizer.css";
 
 /** Top-level container: state from the hook, UI from presentational children. */
@@ -39,6 +40,8 @@ export const ResizerPage = () => {
             <ImageList items={queue.items} />
           </>
         )}
+
+        <Footer />
       </main>
     </div>
   );
