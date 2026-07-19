@@ -7,6 +7,14 @@ else's**, while keeping memory under control.
 
 **Stack:** React + TypeScript (Vite) · ASP.NET Core (.NET 8) · ImageSharp
 
+### 🔗 Live demo
+
+- **App:** https://image-resizer-eight-murex.vercel.app
+- **API health:** https://image-resizer-5a7i.onrender.com/health
+
+> The API is on Render's free tier and sleeps after inactivity — the first
+> request may take ~30–50 s to wake it, then it's fast.
+
 ---
 
 ## Running it
@@ -26,6 +34,11 @@ npm run dev
 
 Open http://localhost:5173, add images, choose a percentage, hit **Resize**,
 download the results.
+
+**With Docker** (API only): `docker build -f Api/Dockerfile -t resizer-api . && docker run -p 8080:8080 resizer-api`
+
+**Tests:** `dotnet test` — 20 tests across validation, resize correctness,
+format preservation, concurrency, and the full HTTP pipeline.
 
 ---
 
@@ -125,9 +138,10 @@ shared/api/httpClient.ts            Configured axios instance
 features/resizer/
   hooks/useResizeQueue.ts           ALL feature logic: queue, sequential processing, upload-blocking
   api/resizeImage.ts                One request, typed, with error parsing
+  lib/imageInfo.ts                  Dimensions / size / savings helpers
   types.ts                          Strict, readonly types
   components/                       Presentational only (props in, UI out):
-    ResizerPage · Toolbar · UploadButton · ScaleSlider · ImageList · ImageRow
+    ResizerPage · Dropzone · Toolbar · ScaleSlider · ImageList · ImageRow · Footer
 ```
 
 Logic lives in the hook; components are dumb and presentational. That keeps the
@@ -172,11 +186,11 @@ of collapsing.*
 
 ## Trade-offs & what I'd add with more time
 
-- **Automated tests.** The validator and the resize service are written to be
-  testable in isolation (pure-ish, injected dependencies); I'd add unit tests
-  for validation rules and an integration test for the endpoint.
 - **The async job model** described above — the current synchronous endpoint is
   the right size for the assignment, but I'd move to jobs for real scale.
 - **Server-side per-user limit** via Redis, rather than client-side only.
 - **Observability** — structured request logging and metrics (resize duration,
   queue wait time) to actually see the concurrency behaviour under load.
+- **More test depth** — the suite already covers validation, resizing,
+  concurrency and the HTTP pipeline (`dotnet test`); with more time I'd add
+  frontend hook tests and a timeout/cancellation test.
