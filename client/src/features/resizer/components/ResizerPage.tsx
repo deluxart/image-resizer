@@ -24,20 +24,17 @@ export const ResizerPage = () => {
 
         {hasItems && (
           <>
-            <div className="resizer__bar">
-              <Toolbar
-                percentage={queue.percentage}
-                isProcessing={queue.isProcessing}
-                canResize={queue.canResize}
-                hasItems={hasItems}
-                onPercentageChange={queue.setPercentage}
-                onResize={queue.resizeAll}
-                onClear={queue.clear}
-              />
-              <span className="resizer__count">
-                {queue.items.length}/{config.maxImages}
-              </span>
-            </div>
+            <Toolbar
+              percentage={queue.percentage}
+              isProcessing={queue.isProcessing}
+              canResize={queue.canResize}
+              hasItems={hasItems}
+              count={queue.items.length}
+              maxImages={config.maxImages}
+              onPercentageChange={queue.setPercentage}
+              onResize={queue.resizeAll}
+              onClear={queue.clear}
+            />
 
             <ImageList items={queue.items} />
           </>
