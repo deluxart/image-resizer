@@ -2,12 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Configuration;
 
-/// <summary>
-/// Strongly-typed configuration for the resize feature, bound from the
-/// "Resize" section of appsettings.json. Keeping limits here (instead of
-/// magic numbers in code) means they can be tuned per environment without
-/// recompiling, and every consumer reads a single source of truth.
-/// </summary>
+/// <summary>Strongly-typed resize limits, bound and validated from the "Resize" config section.</summary>
 public sealed class ResizeOptions
 {
     public const string SectionName = "Resize";

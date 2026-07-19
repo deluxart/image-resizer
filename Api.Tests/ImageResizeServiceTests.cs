@@ -1,6 +1,5 @@
 using Api.Configuration;
 using Api.Services;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
@@ -12,7 +11,7 @@ public sealed class ImageResizeServiceTests
     private static ImageResizeService CreateService(int concurrency = 4)
     {
         var options = Options.Create(new ResizeOptions { MaxConcurrentResizes = concurrency });
-        return new ImageResizeService(options, NullLogger<ImageResizeService>.Instance);
+        return new ImageResizeService(options);
     }
 
     private static async Task<Image> ResizeAndLoadAsync(byte[] source, int percentage)
