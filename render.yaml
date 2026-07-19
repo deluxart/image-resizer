@@ -1,0 +1,15 @@
+# Render blueprint — provisions the API as a Dockerized web service.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: image-resizer-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Api/Dockerfile
+    dockerContext: ./Api
+    healthCheckPath: /health
+    envVars:
+      # Set this to the deployed Vercel URL so CORS allows the frontend.
+      # e.g. https://image-resizer.vercel.app
+      - key: Cors__AllowedOrigins__0
+        sync: false

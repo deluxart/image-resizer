@@ -60,6 +60,9 @@ app.UseCors();
 app.UseRequestTimeouts();
 app.MapControllers();
 
+// Lightweight liveness probe for the platform's health checks.
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
+
 app.Run();
 
 // Exposes the implicit Program class to the integration-test project.

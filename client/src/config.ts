@@ -4,7 +4,8 @@
  * (import.meta.env.VITE_API_URL); kept inline here for the assignment.
  */
 export const config = {
-  apiBaseUrl: "http://localhost:5080",
+  // Prod (Vercel) reads VITE_API_URL; local dev falls back to the API port.
+  apiBaseUrl: import.meta.env.VITE_API_URL ?? "http://localhost:5080",
   maxImages: 10, // assignment: max 10 images per user
   acceptedTypes: ["image/jpeg", "image/png"] as const,
   defaultPercentage: 50,
