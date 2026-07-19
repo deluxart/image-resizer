@@ -1,13 +1,16 @@
+# Build context is the REPOSITORY ROOT (Render's default), so paths are
+# relative to the repo, e.g. Api/Api.csproj.
+
 # --- Build stage ---
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Restore first (cached layer when only source changes).
-COPY Api.csproj .
-RUN dotnet restore
+COPY Api/Api.csproj Api/
+RUN dotnet restore Api/Api.csproj
 
-COPY . .
-RUN dotnet publish -c Release -o /app --no-restore
+COPY Api/ Api/
+RUN dotnet publish Api/Api.csproj -c Release -o /app --no-restore
 
 # --- Runtime stage (small image, no SDK) ---
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime

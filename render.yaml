@@ -6,7 +6,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Api/Dockerfile
-    dockerContext: ./Api
+    dockerContext: .
     healthCheckPath: /health
     envVars:
       # Set this to the deployed Vercel URL so CORS allows the frontend.
